@@ -1,7 +1,7 @@
 {
   "name": "dsh-tui-subagents",
   "displayName": "Subagent Viewer",
-  "description": "只读子 agent 观察器：/subagents 列出当前会话的子 agent，全屏实时查看其轨迹。",
+  "description": "子 agent 观察器：/subagents 列出当前会话的子 agent，全屏实时查看轨迹，可对可续子 agent 发消息、中断当前轮。",
   "version": "0.1.0",
   "entry": "lib/index.js",
   "command": "subagents",
