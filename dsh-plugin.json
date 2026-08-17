@@ -1,27 +1,26 @@
 {
-  "$schema": "https://dsh.community/schemas/dsh-plugin-0.1.json",
+  "$schema": "https://dsh.community/schemas/dsh-plugin-0.15.json",
   "id": "dsh-tui-subagents",
   "name": "Subagent Viewer",
   "version": "0.1.0",
-  "manifestVersion": "0.1",
-  "apiVersion": "0.1",
-  "entry": "lib/index.js",
-  "requires": {
-    "capabilities": {
-      "required": [
-        {
-          "name": "commands",
-          "version": "0.1",
-          "schemaHash": "sha256:44fd09e55246deef61dae0f4d07b84ec88160201226d414b29d46fc759be75b1"
-        },
-        {
-          "name": "messages.observe",
-          "version": "0.1",
-          "schemaHash": "sha256:666030568d12b319d159a7c1d3b60df883ac2142fe4699d60b3e780c8a3f9286"
-        }
-      ],
-      "optional": []
+  "manifestVersion": "0.15",
+  "facets": {
+    "host": {
+      "entry": "lib/index.js",
+      "apiVersion": "v1alpha1"
     }
+  },
+  "requires": {
+    "contracts": [
+      {
+        "apiVersion": "commands.dsh/v1alpha1",
+        "kind": "Command"
+      },
+      {
+        "apiVersion": "messages.dsh/v1alpha1",
+        "kind": "MessageObserver"
+      }
+    ]
   },
   "permissions": [
     {
