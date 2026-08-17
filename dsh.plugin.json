@@ -1,0 +1,9 @@
+{
+  "name": "dsh-tui-subagents",
+  "displayName": "Subagent Viewer",
+  "description": "只读子 agent 观察器：/subagents 列出当前会话的子 agent，全屏实时查看其轨迹。",
+  "version": "0.1.0",
+  "entry": "lib/index.js",
+  "command": "subagents",
+  "homepage": "https://github.com/FUSU123fusu/dsh-tui-subagents"
+}

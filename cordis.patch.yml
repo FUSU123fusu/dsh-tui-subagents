@@ -1,0 +1,14 @@
+# Bundle patch for dsh-tui-subagents: insert the plugin as a profile row.
+# `dsh plugin add dsh-tui-subagents` merges this into the target profile.
+#
+# `inject` is load-bearing, not optional: cordis activates service fibers
+# asynchronously, so a plain row's apply() runs BEFORE `commands` is readable
+# (ctx.get returns undefined and the registration silently no-ops). Injecting
+# `commands` (a dsh-base row, present in every real profile) delays apply
+# until it is active. The host-only seams (`tuiScenes`, `tuiCommandTrees`)
+# stay runtime probes — only dsh-TUI hosts provide them.
+- insert:
+    - id: dsh-tui-subagents
+      name: dsh-tui-subagents
+      inject:
+        - commands

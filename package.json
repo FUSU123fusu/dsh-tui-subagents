@@ -1,0 +1,29 @@
+{
+  "name": "dsh-tui-subagents",
+  "version": "0.1.0",
+  "description": "Read-only live subagent viewer for dsh-TUI: /subagents lists a session's subagents and opens a full-screen, real-time trajectory view.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "dsh.plugin.json"
+  ],
+  "engines": {
+    "node": "^22.19 || >=24"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
