@@ -81,8 +81,18 @@ describe('foldEvent', () => {
     const s = createFoldState()
     foldEvent(s, ev('user/message', userMsg('干这个'), 0), t)
     foldEvent(s, ev('user/message', userMsg('后续指令', 'coordinator'), 1), t)
-    assert.ok(s.rows[0].text.startsWith('[用户]'))
-    assert.ok(s.rows[1].text.startsWith('[主 agent]'))
+    assert.equal(s.rows[0].tag, '用户')
+    assert.equal(s.rows[0].text, '干这个')
+    assert.equal(s.rows[1].tag, '主 agent')
+  })
+
+  it('folds injected context (plugin/skill-catalog/runtime) into meta rows', () => {
+    const s = createFoldState()
+    foldEvent(s, ev('user/message', userMsg('运行时上下文快照…', 'plugin'), 0), t)
+    foldEvent(s, ev('user/message', userMsg('<available_skills>…', 'skill-catalog'), 1), t)
+    assert.deepEqual(s.rows.map((r) => r.kind), ['inject', 'inject'])
+    assert.ok(s.rows[0].text.includes('plugin'))
+    assert.ok(s.rows[0].text.includes('字符'))
   })
 
   it('pairs tool calls with results (nested tool-result blocks)', () => {
@@ -96,7 +106,8 @@ describe('foldEvent', () => {
       },
     }, 1), t)
     assert.equal(s.rows[0].kind, 'tool')
-    assert.ok(s.rows[0].text.includes('bash'))
+    assert.equal(s.rows[0].name, 'bash')
+    assert.ok(s.rows[0].args.includes('ls'))
     assert.equal(s.rows[1].kind, 'tool-result')
     assert.ok(s.rows[1].text.includes('ok'))
   })
