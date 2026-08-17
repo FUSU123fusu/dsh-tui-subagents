@@ -150,6 +150,19 @@ describe('foldEvent', () => {
     assert.equal(s.rows[1].kind, 'meta')
   })
 
+  it('accumulates usage tokens from assistant/message', () => {
+    const s = createFoldState()
+    foldEvent(s, ev('assistant/message', assistantMsg([{ type: 'text', text: 'a' }]) , 0), t)
+    assert.equal(s.tokens, 0)
+    const withUsage = { ...assistantMsg([{ type: 'text', text: 'b' }]), usage: { input: 1000, output: 200, cacheRead: 5000 } }
+    foldEvent(s, ev('assistant/message', withUsage, 1), t)
+    // cacheRead is not billed into the headline number.
+    assert.equal(s.tokens, 1200)
+    const withThink = { ...assistantMsg([{ type: 'text', text: 'c' }]), usage: { input: 10, output: 5, reasoning: 3 } }
+    foldEvent(s, ev('assistant/message', withThink, 2), t)
+    assert.equal(s.tokens, 1218)
+  })
+
   it('ignores unknown and malformed events', () => {
     const s = createFoldState()
     assert.equal(foldEvent(s, ev('session/title', { title: 'x' }, 0), t), false)

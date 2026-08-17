@@ -19,8 +19,9 @@ dsh-TUI 的子 agent 会话视图：`/subagents` 列出当前会话的子 agent�
 | PgUp / PgDn | 翻页 |
 | e | 展开/收起思考 |
 | i | 给可续子 agent 发消息（排入其下一个 turn） |
-| x | 中断运行中子 agent 的当前轮 |
+| x | 中断运行中子 agent 的当前轮（3 秒内按两次确认） |
 | G | 跳到末尾并恢复实时跟随 |
+| ← / → | 在兄弟子 agent 间循环切换 |
 | Esc | 返回列表（列表里再按退出） |
 
 一次性（one-shot）子 agent 保持只读，与官方 Web 端行为一致。
